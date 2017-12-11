@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Video Chat | WebRTC</title>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<script src="/socket.io/socket.io.js"></script>
+	</head>
+	<body>
+	
+	
+		<form action="/" method="post">
+	
+			<input type="text" name="username">
+			
+			<input type="submit" value="Create Room">
+		
+		</form>
+	
+	
+<!--	
+		<label>Enter Your Name : </label>
+		<input type="text" id="username">
+		<br>
+		<button id="createRoomBtn">Create Room</button>
+		
+		
+		<script>
+		
+		io = io.connect();
+		
+		var username = document.querySelector('#username'); 
+		var createRoomBtn = document.querySelector('#createRoomBtn'); 
+		
+		createRoomBtn.addEventListener('click', function (event) { 
+			var creatername = username.value;
+			var room = 'musaib';
+			io.emit('ready', room);
+		});
+		
+		io.on('announce', function(data) {
+			console.log(data.message);
+		});
+		
+		
+		
+		</script>
+	-->
+	
+	</body>
+</html>

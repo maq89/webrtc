@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Video Chat | WebRTC</title>
+		<link rel="stylesheet" type="text/css" href="/styles.css">
+		
+		
+	</head>
+	<body>
+	
+	<h1>Welcome to <%= room_id %></h1>
+	
+	<div id="usernameBlock">
+		<label>Enter Your Name</label>
+		<input type="text" id="username">
+		<br>
+		<button id="joinRoomBtn">join</button>
+	</div>
+	
+	
+	<button onclick="startRecording()">Record</button> | <button onclick="download()">Download</button>
+	
+	<div id="videosBlock">
+		<div class="videoBlock">
+			<h2 id="callerName"></h2>
+			<video id="myVideoTag" autoplay></video>
+		</div>
+		<div class="videoBlock">
+			<h2 id="calleeName"></h2>
+			<video id="theirVideoTag" autoplay></video>
+		</div>
+	</div>
+	
+	
+	<div id="signalingArea">Signaling Messages:</br></div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/js/functions.js"></script>
+	<script src="/js/signal.js"></script>
+	<script src="/js/recording.js"></script>
+	<script src="/js/events.js"></script>
+	
+	<script>
+			
+
+		var room_id = '<%= room_id %>';
+		var users = JSON.parse(decode('<%= users %>'));	
+		
+		var rtcPeerConn;
+		
+		io = io.connect();
+		
+		if(room_id != 0){
+		
+			io.emit('ready', room_id);
+			io.on('announce', function(data) {
+				displaySignalMessage(data.message);
+			});
+			
+			if(users.ask_name){
+				askName(true);
+			}
+			
+			displayUsersNames(users);
+			io.on('names', function(data) {
+				users = data;
+				displayUsersNames(users);
+			});
+			
+			signaling();
+			
+		}
+		
+	</script>
+	
+
+</body>
+</html>
